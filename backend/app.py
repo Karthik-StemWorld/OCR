@@ -645,7 +645,7 @@ def transform_to_official_format(df, metadata=None):
     
     return main_df, reference_df
 
-@app.route('/api/health', methods=['GET'])
+@app.route('/health', methods=['GET'])
 def health_check():
     status = {
         "status": "healthy",
@@ -654,7 +654,7 @@ def health_check():
     logger.info(f"Health check: {status}")
     return jsonify(status)
 
-@app.route('/api/extract-tables', methods=['POST'])
+@app.route('/extract-tables', methods=['POST'])
 def extract_tables():
     temp_image_path = None
     cell_result_dir = None
@@ -840,7 +840,7 @@ def extract_tables():
         except Exception as e:
             logger.warning(f"Cleanup error: {e}")
 
-@app.route('/api/view-table-html', methods=['POST'])
+@app.route('/view-table-html', methods=['POST'])
 def view_table_html():
     """View tables as formatted HTML - simplified version"""
     try:
@@ -851,7 +851,7 @@ def view_table_html():
         
         # For now, redirect to use the main extract-tables endpoint
         return Response(
-            "Please use /api/extract-tables endpoint for processing", 
+            "Please use /extract-tables endpoint for processing", 
             status=400
         )
         
@@ -887,7 +887,7 @@ if __name__ == '__main__':
     print("  - Columns: 1, 2, 3, 5, 7, 9 (filtered)")
     print("=" * 70)
     print("Endpoints:")
-    print("  Health: http://localhost:5000/api/health")
-    print("  Extract: http://localhost:5000/api/extract-tables")
+    print("  Health: http://localhost:5000/health")
+    print("  Extract: http://localhost:5000/extract-tables")
     print("=" * 70)
     app.run(host='0.0.0.0', port=5000, debug=True)
