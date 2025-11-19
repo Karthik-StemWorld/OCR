@@ -29,7 +29,7 @@ export default function EnhancedTableOCRSystem() {
 
   const fileInputRef = useRef(null);
 
-  const API_BASE = 'http://localhost:5000';
+  const API_BASE = 'api.stemverse.app/OCR/api';
   const MAX_FILE_SIZE = 16 * 1024 * 1024;
   const ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'pdf', 'tiff', 'tif', 'bmp', 'webp'];
 
@@ -45,7 +45,7 @@ export default function EnhancedTableOCRSystem() {
 
   async function fetchLocations() {
     try {
-      const res = await fetch("/districts-mandals.csv?t=" + Date.now());
+      const res = await fetch("/OCR/districts-mandals.csv?t=" + Date.now());
       if (!res.ok) throw new Error("Failed to load CSV");
       const csvText = await res.text();
       const lines = csvText.split('\n').filter(line => line.trim());
@@ -73,10 +73,11 @@ export default function EnhancedTableOCRSystem() {
         }
       }
       headerValues.push(current.trim().replace(/^"|"$/g, '').toLowerCase());
+      console.log("HEADER VALUES =>", headerValues);
       
-      const mandalIdx = headerValues.findIndex(h => h.includes('mandal'));
-      const districtIdx = headerValues.findIndex(h => h.includes('district'));
-      const villageIdx = headerValues.findIndex(h => h.includes('village'));
+      const mandalIdx = headerValues.findIndex(h => h.includes('mandals'));
+      const districtIdx = headerValues.findIndex(h => h.includes('districts'));
+      const villageIdx = headerValues.findIndex(h => h.includes('villages'));
       
       if (districtIdx === -1 || mandalIdx === -1) {
         console.error('CSV must contain mandals and districts columns');
