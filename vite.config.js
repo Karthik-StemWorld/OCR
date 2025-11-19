@@ -8,7 +8,7 @@ export default defineConfig({
     open: true, // Automatically open browser when dev server starts
     proxy: {
       '/api': {
-        target: 'api.stemverse.app/OCR/api',
+        target: 'https://api.stemverse.app/OCR/api',
         changeOrigin: true,
         secure: false,
       },
