@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  base: '/OCR/',
   server: {
     open: true, // Automatically open browser when dev server starts
     proxy: {
