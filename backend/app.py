@@ -645,7 +645,7 @@ def transform_to_official_format(df, metadata=None):
     
     return main_df, reference_df
 
-@app.route('/health', methods=['GET'])
+@app.route('OCR/api/health', methods=['GET'])
 def health_check():
     status = {
         "status": "healthy",
@@ -654,7 +654,7 @@ def health_check():
     logger.info(f"Health check: {status}")
     return jsonify(status)
 
-@app.route('/extract-tables', methods=['POST'])
+@app.route('OCR/api/extract-tables', methods=['POST'])
 def extract_tables():
     temp_image_path = None
     cell_result_dir = None
@@ -840,7 +840,7 @@ def extract_tables():
         except Exception as e:
             logger.warning(f"Cleanup error: {e}")
 
-@app.route('/view-table-html', methods=['POST'])
+@app.route('OCR/api/view-table-html', methods=['POST'])
 def view_table_html():
     """View tables as formatted HTML - simplified version"""
     try:
