@@ -30,13 +30,19 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app,
-    origins=[
-        "http://localhost:5173",
-        "https://karthik-stemworld.github.io",
-    ],
-    supports_credentials=True,
-    resources={r"*": {"origins": "*"}}
+CORS(app, 
+    resources={
+        r"/OCR/*": {
+            "origins": [
+                "http://localhost:5173",
+                "https://karthik-stemworld.github.io"
+            ],
+            "methods": ["GET", "POST", "OPTIONS"],
+            "allow_headers": ["Content-Type", "Authorization"],
+            "supports_credentials": True,
+            "max_age": 3600
+        }
+    }
 )
 
 # Replace with your Vision API credentials
@@ -645,7 +651,7 @@ def transform_to_official_format(df, metadata=None):
     
     return main_df, reference_df
 
-@app.route('OCR/api/health', methods=['GET'])
+@app.route('/OCR/api/health', methods=['GET'])
 def health_check():
     status = {
         "status": "healthy",
@@ -654,7 +660,7 @@ def health_check():
     logger.info(f"Health check: {status}")
     return jsonify(status)
 
-@app.route('OCR/api/extract-tables', methods=['POST'])
+@app.route('/OCR/api/extract-tables', methods=['POST'])
 def extract_tables():
     temp_image_path = None
     cell_result_dir = None
@@ -840,7 +846,7 @@ def extract_tables():
         except Exception as e:
             logger.warning(f"Cleanup error: {e}")
 
-@app.route('OCR/api/view-table-html', methods=['POST'])
+@app.route('/OCR/api/view-table-html', methods=['POST'])
 def view_table_html():
     """View tables as formatted HTML - simplified version"""
     try:

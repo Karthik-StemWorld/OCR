@@ -488,7 +488,7 @@ export default function EnhancedTableOCRSystem() {
         formData.append('file', fileToProcess);
 
         try {
-          const response = await fetch(`${API_BASE}/api/extract-tables`, {
+          const response = await fetch(`https://api.stemverse.app/OCR/api/extract-tables`, {
             method: 'POST',
             body: formData,
           });
