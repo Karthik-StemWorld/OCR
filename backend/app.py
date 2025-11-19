@@ -30,7 +30,12 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app, resources={r'/*': {'origins': ['http://localhost:5173', 'https://karthik-stemworld.github.io']}}, supports_credentials=True)
+CORS(app,
+     resources={r"/OCR/*": {"origins": [
+         "http://localhost:5173",
+         "https://karthik-stemworld.github.io"
+     ]}},
+     supports_credentials=True)
 
 # Replace with your Vision API credentials
 SERVICE_ACCOUNT_JSON = {
