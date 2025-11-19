@@ -31,11 +31,13 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 CORS(app,
-     resources={r"/OCR/*": {"origins": [
-         "http://localhost:5173",
-         "https://karthik-stemworld.github.io"
-     ]}},
-     supports_credentials=True)
+    origins=[
+        "http://localhost:5173",
+        "https://karthik-stemworld.github.io",
+    ],
+    supports_credentials=True,
+    resources={r"*": {"origins": "*"}}
+)
 
 # Replace with your Vision API credentials
 SERVICE_ACCOUNT_JSON = {
