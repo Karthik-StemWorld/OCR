@@ -30,7 +30,6 @@ export default function EnhancedTableOCRSystem() {
   const fileInputRef = useRef(null);
 
   const API_BASE = 'https://api.stemverse.app/OCR';
-  const MAX_FILE_SIZE = 16 * 1024 * 1024;
   const ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'pdf', 'tiff', 'tif', 'bmp', 'webp'];
 
   // Auto-load CSV file on component mount
@@ -249,11 +248,6 @@ export default function EnhancedTableOCRSystem() {
         return;
       }
 
-      if (file.size > MAX_FILE_SIZE) {
-        oversizedFiles.push(file.name);
-        return;
-      }
-
       const isDuplicate = files.some(f => 
         f.name === file.name && f.size === file.size
       );
@@ -286,9 +280,6 @@ export default function EnhancedTableOCRSystem() {
     }
     if (invalidFiles.length > 0) {
       messages.push(`❌ ${invalidFiles.length} invalid file type(s)`);
-    }
-    if (oversizedFiles.length > 0) {
-      messages.push(`❌ ${oversizedFiles.length} file(s) too large (max 16MB)`);
     }
 
     if (messages.length > 0) {
@@ -835,7 +826,7 @@ export default function EnhancedTableOCRSystem() {
                         Drop files here or click to upload
                       </p>
                       <p className="text-sm text-gray-600">
-                        Supports: PNG, JPG, PDF, TIFF (Max 16MB)
+                        Supports: PNG, JPG, PDF, TIFF
                       </p>
                     </div>
                     <input
